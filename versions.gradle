@@ -2,6 +2,9 @@ def versions = [:]
 versions.android_gradle_plugin = "3.2.1"
 versions.kotlin = "1.2.71"
 versions.support = "28.0.0"
+versions.java_test = "4.12"
+versions.android_test_runner = "1.0.2"
+versions.android_test_espresso = "3.0.2"
 versions.multidex = "1.0.3"
 versions.constraint_layout = "1.1.3"
 versions.okhttp3 = "3.14.1"
@@ -27,6 +30,12 @@ support.design = "com.android.support:design:$versions.support"
 support.v4 = "com.android.support:support-v4:$versions.support"
 support.multidex = "com.android.support:multidex:$versions.multidex"
 deps.support = support
+
+def test = [:]
+test.java = "junit:junit:$versions.java_test"
+test.android_runner = "com.android.support.test:runner:$versions.android_test_runner"
+test.android_espresso = "com.android.support.test.espresso:espresso-core:$versions.android_test_espresso"
+deps.test = test
 
 def retrofit = [:]
 retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"

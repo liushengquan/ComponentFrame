@@ -1,1 +1,1 @@
-include ':app', ':common'
+include ':app', 'modules:common', 'modules:book', 'modules:event', 'modules:music', 'modules:film', 'modules:main', 'service-base:api', 'service-base:impl'
