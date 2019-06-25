@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+
+apply from: 'tinker-support.gradle'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -51,6 +51,7 @@ dependencies {
     implementation deps.support.multidex
 
     implementation project(':modules:common')
+    implementation project(':service-base:api')
     if (!isModule.toBoolean()) {
         implementation project(':modules:main')
         implementation project(':modules:book')

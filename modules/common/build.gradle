@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion build_versions.target_sdk
@@ -12,7 +14,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
             }
         }
     }
@@ -66,7 +68,7 @@ configurations.all {
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
                 //这里指定需要统一的依赖版本,这里统一为28.0.0
-                details.useVersion '28.0.0'
+                details.useVersion '27.0.0'
             }
         }
     }

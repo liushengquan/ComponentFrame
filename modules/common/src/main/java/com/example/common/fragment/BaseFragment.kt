@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.Toast
 import com.example.common.BaseApplication
+import com.example.common.R
 import com.example.common.activity.BaseInit
-import com.example.liushengquan.componentframe.R
 
 /**
  * Created by liushengquan on 2017/12/31.
