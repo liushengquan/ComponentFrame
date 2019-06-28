@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Environment
-import android.support.multidex.MultiDex
 import com.example.common.BaseApplication
 import com.example.common.util.ProcessUtil
 import com.tencent.bugly.Bugly
@@ -42,7 +41,7 @@ class ComponentFrameApplicationLike(application: Application, tinkerFlags: Int, 
 
     override fun onBaseContextAttached(base: Context?) {
         super.onBaseContextAttached(base)
-        MultiDex.install(base)
+//        MultiDex.install(base)
         // 安装tinker
         Beta.installTinker(this)
     }

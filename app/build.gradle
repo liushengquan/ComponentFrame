@@ -19,6 +19,7 @@ android {
         versionCode project.VersionCode as int
         versionName project.VersionName
         multiDexEnabled true
+        multiDexKeepProguard file("multidex-keep.pro")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -47,7 +48,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation deps.support.multidex
 
     implementation project(':modules:common')

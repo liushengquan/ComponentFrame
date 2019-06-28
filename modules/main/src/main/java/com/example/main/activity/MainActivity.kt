@@ -14,7 +14,7 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         btn_main_crashreport.setOnClickListener {
-            var a = 1/0
+//            var a = 1/0
         }
     }
 

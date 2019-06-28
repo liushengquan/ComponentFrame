@@ -9,7 +9,7 @@ buildscript {
     dependencies {
         classpath deps.android_gradle_plugin
         classpath deps.kotlin.plugin
-        classpath deps.bugly.tinker_plugin
+        classpath deps.bugly.tinker_support
     }
 }
 
@@ -19,6 +19,16 @@ allprojects {
     // 组件缓存更新时间设置（默认每次build都更新）
     configurations.all {
         resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
+
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    //这里指定需要统一的依赖版本,这里统一为28.0.0
+                    details.useVersion '28.0.0'
+                }
+            }
+        }
     }
 }
 

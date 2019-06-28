@@ -14,7 +14,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
     }
@@ -34,7 +34,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Support libraries
     api deps.support.app_compat_v7
     api deps.support.v4
@@ -44,9 +43,9 @@ dependencies {
     api deps.constraint_layout
 
     //test
-    api deps.test.java
+ /*   api deps.test.java
     api deps.test.android_runner
-    api deps.test.android_espresso
+    api deps.test.android_espresso*/
 
     // other
     api deps.kotlin.stdlib
@@ -60,16 +59,4 @@ dependencies {
     //annotationProcessor
     annotationProcessor deps.glide_annotation_processer
     annotationProcessor deps.arouter_compiler
-}
-
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                //这里指定需要统一的依赖版本,这里统一为28.0.0
-                details.useVersion '27.0.0'
-            }
-        }
-    }
 }

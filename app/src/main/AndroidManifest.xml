@@ -18,7 +18,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <provider
-            android:name="com.example.common.report.BuglyFileProvider"
+            android:name="com.tencent.bugly.beta.utils.BuglyFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
@@ -26,7 +26,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/bugly_provider_paths"
-                tools:replace="name,resource"/>
+                tools:replace="name,resource" />
         </provider>
     </application>
 

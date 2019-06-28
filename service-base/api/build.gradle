@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // RxJava and retrofit
     implementation deps.rx_android
     implementation deps.rxjava2
@@ -49,16 +48,4 @@ dependencies {
     api deps.bugly.upgrade_sdk
     api deps.bugly.ndk
     api deps.bugly.tinker_lib
-}
-
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                //这里指定需要统一的依赖版本,这里统一为28.0.0
-                details.useVersion '27.0.0'
-            }
-        }
-    }
 }
