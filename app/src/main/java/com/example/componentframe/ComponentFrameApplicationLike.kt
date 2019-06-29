@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Environment
-import com.example.common.BaseApplication
+import android.support.multidex.MultiDex
 import com.example.common.util.ProcessUtil
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
@@ -20,12 +20,11 @@ class ComponentFrameApplicationLike(application: Application, tinkerFlags: Int, 
     }
 
     fun initBugly() {
-        val context = BaseApplication.getAppContext()
-        val packageName = context.packageName
+        val packageName = application.packageName
         // 获取当前进程名
         val processName = ProcessUtil.getProcessName(android.os.Process.myPid())
         // 设置是否为上报进程
-        val strategy = CrashReport.UserStrategy(context)
+        val strategy = CrashReport.UserStrategy(application)
         strategy.isUploadProcess = processName == null || processName == packageName
         //设置为开发设备
 //        CrashReport.setIsDevelopmentDevice(context, BuildConfig.DEBUG)
@@ -36,12 +35,12 @@ class ComponentFrameApplicationLike(application: Application, tinkerFlags: Int, 
         Beta.storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         Beta.enableNotification = true
         Beta.canShowApkInfo = true
-        Bugly.init(BaseApplication.getAppContext(), Config.BUGLY_APP_ID, true)
+        Bugly.init(application, Config.BUGLY_APP_ID, true)
     }
 
     override fun onBaseContextAttached(base: Context?) {
         super.onBaseContextAttached(base)
-//        MultiDex.install(base)
+        MultiDex.install(base)
         // 安装tinker
         Beta.installTinker(this)
     }

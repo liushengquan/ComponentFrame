@@ -179,12 +179,6 @@
 -keep class retrofit.** { *; }
 -dontwarn okio.**
 
-#tinker
--dontwarn com.tencent.tinker.**
--keep class com.tencent.tinker.** { *; }
-
- -keep class android.support.**{*;}
-
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
@@ -193,4 +187,4 @@
   public *;
 }
 # for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule

@@ -43,7 +43,7 @@ dependencies {
     api deps.constraint_layout
 
     //test
- /*   api deps.test.java
+    /* api deps.test.java
     api deps.test.android_runner
     api deps.test.android_espresso*/
 
