@@ -188,3 +188,16 @@
 }
 # for DexGuard only
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+#umeng
+-keep class com.umeng.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep public class com.example.componentframe.R$*{
+public static final int *;
+}

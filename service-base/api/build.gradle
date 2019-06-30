@@ -48,4 +48,8 @@ dependencies {
     api deps.bugly.upgrade_sdk
     api deps.bugly.ndk
     api deps.bugly.tinker_lib
+
+    //umeng 统计
+    api  deps.umeng.analytics
+    api  deps.umeng.common
 }

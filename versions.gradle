@@ -22,6 +22,9 @@ versions.bugly_upgrade_sdk = "1.4.1"
 versions.bugly_ndk = "3.7.0"
 versions.bugly_tinker_lib = "1.9.13.2"
 versions.bugly_tinker_support = "1.1.5"
+//UMeng
+versions.umeng_analytics = "8.1.0"
+versions.umeng_common = "2.1.0"
 
 def deps = [:]
 
@@ -61,6 +64,11 @@ bugly.tinker_support = "com.tencent.bugly:tinker-support:$versions.bugly_tinker_
 bugly.tinker_lib = "com.tencent.tinker:tinker-android-lib:$versions.bugly_tinker_lib"
 deps.bugly = bugly
 
+def umeng = [:]
+umeng.analytics = "com.umeng.umsdk:analytics:$versions.umeng_analytics"
+umeng.common = "com.umeng.umsdk:common:$versions.umeng_common"
+deps.umeng = umeng
+
 //view
 deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
@@ -93,6 +101,8 @@ def addRepos(RepositoryHandler handler) {
     handler.maven { url 'https://maven.google.com' }
     handler.maven { url "https://jitpack.io" }
     handler.maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    //Umeng
+    handler.maven { url 'https://dl.bintray.com/umsdk/release' }
 }
 
 ext.addRepos = this.&addRepos
