@@ -64,6 +64,7 @@ dependencies {
 
     implementation project(':modules:common')
     implementation project(':service-base:api')
+    implementation project(':service-base:impl')
     if (!isModule.toBoolean()) {
         implementation project(':modules:main')
         implementation project(':modules:book')
