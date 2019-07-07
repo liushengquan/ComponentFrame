@@ -11,11 +11,6 @@ android {
         versionName project.VersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        ndk {
-            // 设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
     }
 
     buildTypes {
@@ -25,21 +20,10 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation deps.support.app_compat_v7
     implementation deps.kotlin.stdlib
-    //bugly
-    api deps.bugly.upgrade_sdk
-    api deps.bugly.ndk
-    api deps.bugly.tinker_lib
-
-    //umeng 统计
-    api  deps.umeng.analytics
-    api  deps.umeng.common
 }

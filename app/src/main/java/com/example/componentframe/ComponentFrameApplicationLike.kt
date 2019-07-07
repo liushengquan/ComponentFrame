@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Environment
 import android.support.multidex.MultiDex
+import com.example.api.book.bean.IBookService
 import com.example.api.report.IReportService
-import com.example.common.BaseApp
+import com.example.common.base.BaseApp
 import com.example.common.router.Router
 import com.example.common.util.ProcessUtil
+import com.example.impl.book.BookServiceImpl
 import com.example.impl.report.ReportServiceImpl
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
@@ -47,6 +49,7 @@ class ComponentFrameApplicationLike(application: Application, tinkerFlags: Int, 
     private fun initAllService(){
         val router = Router.getInstance()
         router.registerService(IReportService::class.simpleName!!, ReportServiceImpl.init(BaseApp.getAppContext()))
+        router.registerService(IBookService::class.simpleName!!, BookServiceImpl.init(BaseApp.getAppContext()))
     }
 
     override fun onBaseContextAttached(base: Context?) {

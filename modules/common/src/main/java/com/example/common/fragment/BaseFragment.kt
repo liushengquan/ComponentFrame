@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.Toast
 import com.example.api.report.IReportService
-import com.example.common.BaseApp
+import com.example.common.base.BaseApp
 import com.example.common.R
 import com.example.common.activity.BaseActivity
 import com.example.common.activity.BaseInit

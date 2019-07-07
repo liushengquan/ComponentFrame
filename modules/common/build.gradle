@@ -56,7 +56,7 @@ dependencies {
     //router
     api deps.arouter_api
 
-    implementation project(':service-base:api')
+    api project(':service-base:api')
 
     //annotationProcessor
     annotationProcessor deps.glide_annotation_processer

@@ -22,6 +22,17 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // RxJava and retrofit
+    implementation deps.rx_android
+    implementation deps.rxjava2
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.adapter
+    implementation deps.retrofit.gson
+
+    // other
+    implementation deps.kotlin.stdlib
+    implementation deps.event_bus
+    implementation deps.gson
+
     implementation project(':service-base:api')
 }
