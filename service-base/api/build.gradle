@@ -42,4 +42,7 @@ dependencies {
     //umeng 统计
     api  deps.umeng.analytics
     api  deps.umeng.common
+
+    //xlog
+    api project(':framework-base:marsxlog')
 }

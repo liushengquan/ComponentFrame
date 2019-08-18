@@ -1,1 +1,1 @@
-include 'framework-base:core','modules:common', 'modules:book', 'modules:event', 'modules:music', 'modules:film', 'modules:main', 'service-base:api', 'service-base:impl', ':app'
+include 'framework-base:core','framework-base:marsxlog','modules:common', 'modules:book', 'modules:event', 'modules:music', 'modules:film', 'modules:main', 'service-base:api', 'service-base:impl', ':app'

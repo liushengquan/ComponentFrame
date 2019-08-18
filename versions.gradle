@@ -22,6 +22,8 @@ versions.bugly_upgrade_sdk = "1.4.1"
 versions.bugly_ndk = "3.7.0"
 versions.bugly_tinker_lib = "1.9.13.2"
 versions.bugly_tinker_support = "1.1.5"
+//xlog
+versions.mars_xlog = "1.0.7"
 //UMeng
 versions.umeng_analytics = "8.1.0"
 versions.umeng_common = "2.1.0"
@@ -83,6 +85,7 @@ deps.event_bus = "org.greenrobot:eventbus:$versions.event_bus"
 deps.gson = "com.google.code.gson:gson:$versions.gson"
 deps.arouter_api = "com.alibaba:arouter-api:$versions.arouter_api"
 deps.arouter_compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler"
+deps.mars_xlog = "com.tencent.mars:mars-xlog:$versions.mars_xlog"
 
 ext.deps = deps
 
