@@ -6,7 +6,6 @@ import com.example.api.ApiConfig
 import com.example.api.appinit.IAppInitService
 import com.tencent.mars.xlog.Log
 import com.tencent.mars.xlog.Xlog
-import java.lang.ref.WeakReference
 
 class AppInitServiceImpl private constructor(val context: Context) : IAppInitService {
 
@@ -15,31 +14,37 @@ class AppInitServiceImpl private constructor(val context: Context) : IAppInitSer
     }
 
     companion object {
-        private lateinit var mRefer: WeakReference<IAppInitService>
+
+        @Volatile
+        var mAppInitService: IAppInitService? = null
 
         fun init(context: Context): IAppInitService {
-            if (mRefer == null) {
-                mRefer = WeakReference(AppInitServiceImpl(context))
+            if (mAppInitService == null) {
+                synchronized(AppInitServiceImpl::class) {
+                    if (mAppInitService == null) {
+                        mAppInitService = AppInitServiceImpl(context)
+                    }
+                }
             }
-            return mRefer.get()!!
+            return mAppInitService!!
         }
     }
 
-    fun initXlog() {
+    private fun initXlog() {
         System.loadLibrary("c++_shared")
         System.loadLibrary("marsxlog")
 
-        val SDCARD = Environment.getExternalStorageDirectory().absolutePath
-        val logPath = "$SDCARD/${ApiConfig.XLOG_DIR}"
+        val sdcard = Environment.getExternalStorageDirectory().absolutePath
+        val logPath = "$sdcard/${ApiConfig.XLOG_DIR}"
 
         // this is necessary, or may crash for SIGBUS
         val cachePath = context.filesDir.absolutePath + "/xlog"
 
         //init xlog
-        Xlog.appenderOpen(Xlog.LEVEL_DEBUG, Xlog.AppednerModeAsync, cachePath, logPath, "MarsSample", 0, "")
+        Xlog.appenderOpen(Xlog.LEVEL_DEBUG, Xlog.AppednerModeAsync, cachePath, logPath, "Douban", 0, ApiConfig.XLOG_PUB_KEY)
         Xlog.setConsoleLogOpen(true)
-//            Xlog.appenderOpen(Xlog.LEVEL_INFO, Xlog.AppednerModeSync, cachePath, logPath, "MarsSample", 0, "")
-//            Xlog.setConsoleLogOpen(false)
+//      Xlog.appenderOpen(Xlog.LEVEL_INFO, Xlog.AppednerModeSync, cachePath, logPath, "MarsSample", 0, "")
+//      Xlog.setConsoleLogOpen(false)
         Log.setLogImp(Xlog())
     }
 

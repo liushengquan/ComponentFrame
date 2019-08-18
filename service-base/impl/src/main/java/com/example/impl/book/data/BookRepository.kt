@@ -9,36 +9,36 @@ import io.reactivex.Observable
 
 class BookRepository private constructor(context: Context) : IBookDataSource {
 
-    private val mLocalBookDataSource: IBookDataSource
-    private val mRemoteBookDataSource: IBookDataSource
-
-    init {
-        mLocalBookDataSource = BookLocalDataSource.getInstance(context)
-        mRemoteBookDataSource = BookRemoteDataSource.getInstance(context)
-    }
+    private val mLocalBookDataSource: IBookDataSource = BookLocalDataSource.getInstance(context)
+    private val mRemoteBookDataSource: IBookDataSource = BookRemoteDataSource.getInstance(context)
 
     companion object {
-        private lateinit var mBookRepository: BookRepository
+        @Volatile
+        var mBookRepository: BookRepository? = null
 
         fun getInstance(context: Context): BookRepository {
             if (mBookRepository == null) {
-                mBookRepository = BookRepository(context)
+                synchronized(BookRepository::class) {
+                    if (mBookRepository == null) {
+                        mBookRepository = BookRepository(context)
+                    }
+                }
             }
-            return mBookRepository
+            return mBookRepository!!
         }
     }
 
     override fun searchBookByTag(tag: String, refreshFromServer: Boolean?): Observable<Books> {
         return if (refreshFromServer == null || !refreshFromServer)
-            mLocalBookDataSource.searchBookByTag(tag,null)
+            mLocalBookDataSource.searchBookByTag(tag, null)
         else
-            mRemoteBookDataSource.searchBookByTag(tag,null)
+            mRemoteBookDataSource.searchBookByTag(tag, null)
     }
 
     override fun getBookDetail(id: String, refreshFromServer: Boolean?): Observable<Book> {
         return if (refreshFromServer == null || !refreshFromServer)
-            mLocalBookDataSource.getBookDetail(id,null)
+            mLocalBookDataSource.getBookDetail(id, null)
         else
-            mRemoteBookDataSource.getBookDetail(id,null)
+            mRemoteBookDataSource.getBookDetail(id, null)
     }
 }

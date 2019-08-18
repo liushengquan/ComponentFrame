@@ -70,18 +70,23 @@ class ApiRetrofit private constructor(context: Context) {
     }
 
     companion object {
-        private lateinit var mInstance: ApiRetrofit
+        @Volatile
+        var mInstance: ApiRetrofit? = null
 
         fun getInstance(context: Context): ApiRetrofit {
             if (mInstance == null) {
-                mInstance = ApiRetrofit(context)
+                synchronized(ApiRetrofit::class) {
+                    if (mInstance == null) {
+                        mInstance = ApiRetrofit(context)
+                    }
+                }
             }
-            return mInstance
+            return mInstance!!
         }
     }
 
-    fun getApiService(service: Any): Any? {
-        return mRetrofit.create(service::class.java)
+    fun <T> getApiService(service: Class<T>): Any? {
+        return mRetrofit.create(service)
     }
 
 }

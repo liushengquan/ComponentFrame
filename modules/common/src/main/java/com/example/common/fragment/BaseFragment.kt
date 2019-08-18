@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.Toast
 import com.example.api.report.IReportService
-import com.example.common.base.BaseApp
 import com.example.common.R
 import com.example.common.activity.BaseActivity
 import com.example.common.activity.BaseInit
+import com.example.common.base.BaseApp
 import com.example.common.router.Router
 
 
@@ -50,12 +50,12 @@ abstract class BaseFragment : Fragment(), BaseInit {
 
     override fun onResume() {
         super.onResume()
-        (Router.getInstance().getService(IReportService::class.simpleName!!) as IReportService).umengOnPageStart(this::class.simpleName!!)
+        (Router.get().getService(IReportService::class.simpleName!!) as IReportService).umengOnPageStart(this::class.simpleName!!)
     }
 
     override fun onPause() {
         super.onPause()
-        (Router.getInstance().getService(IReportService::class.simpleName!!) as IReportService).umengOnPageEnd(this::class.simpleName!!)
+        (Router.get().getService(IReportService::class.simpleName!!) as IReportService).umengOnPageEnd(this::class.simpleName!!)
     }
 
     /**

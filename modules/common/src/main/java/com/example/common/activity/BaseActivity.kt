@@ -5,13 +5,17 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import com.example.api.appinit.AppInitEvent
 import com.example.common.base.BaseApp
+import com.tencent.mars.xlog.Log
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by liushengquan on 2017/12/31.
  */
-abstract class BaseActivity : AppCompatActivity(),BaseInit {
+abstract class BaseActivity : AppCompatActivity(), BaseInit {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +40,32 @@ abstract class BaseActivity : AppCompatActivity(),BaseInit {
         EventBus.getDefault().unregister(this)
     }
 
-    fun addFragment(fragment: Fragment, frameId: Int){
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun appInitEvent(event: AppInitEvent.OnAppinitEvent) {
+        Log.i("BaseActivity", "appInitEvent")
+        appInitCallback()
+    }
+
+    abstract fun appInitCallback()
+
+    fun addFragment(fragment: Fragment, frameId: Int) {
         supportFragmentManager.inTransaction { add(frameId, fragment) }
     }
 
     fun replaceFragment(fragment: Fragment, frameId: Int) {
-        supportFragmentManager.inTransaction{replace(frameId, fragment)}
+        supportFragmentManager.inTransaction { replace(frameId, fragment) }
     }
 
     fun removeFragment(fragment: Fragment) {
-        supportFragmentManager.inTransaction{remove(fragment)}
+        supportFragmentManager.inTransaction { remove(fragment) }
     }
 
     fun showFragment(fragment: Fragment) {
-        supportFragmentManager.inTransaction{show(fragment)}
+        supportFragmentManager.inTransaction { show(fragment) }
     }
 
     fun hideFragment(fragment: Fragment) {
-        supportFragmentManager.inTransaction{hide(fragment)}
+        supportFragmentManager.inTransaction { hide(fragment) }
     }
 
     private fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {

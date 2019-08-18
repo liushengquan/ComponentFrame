@@ -6,6 +6,7 @@ class ApiConfig {
         const val UMENG_CHANEL = "douban_test"
         val UMENG_PUSH_SECRET = null
 
-        const val XLOG_DIR = "mars_xlog"
+        const val XLOG_DIR = "douban_xlog"
+        const val XLOG_PUB_KEY = "12abc23b4f5432fde28usjahsg8271ahsbfhbsf"
     }
 }

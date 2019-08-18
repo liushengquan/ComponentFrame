@@ -49,6 +49,7 @@ dependencies {
 
     // other
     api deps.kotlin.stdlib
+    api deps.kotlin.reflect
     api deps.event_bus
     api deps.gson
     api deps.glide

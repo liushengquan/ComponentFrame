@@ -48,8 +48,8 @@ class ComponentFrameApplicationLike(application: Application, tinkerFlags: Int, 
         Bugly.init(application, Config.BUGLY_APP_ID, true)
     }
 
-    private fun initAllService(){
-        val router = Router.getInstance()
+    private fun initAllService() {
+        val router = Router.get()
         router.registerService(IAppInitService::class.simpleName!!, AppInitServiceImpl.init(BaseApp.getAppContext()))
         router.registerService(IReportService::class.simpleName!!, ReportServiceImpl.init(BaseApp.getAppContext()))
         router.registerService(IBookService::class.simpleName!!, BookServiceImpl.init(BaseApp.getAppContext()))

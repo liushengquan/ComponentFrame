@@ -3,6 +3,7 @@ package com.example.impl.report
 import android.content.Context
 import com.example.api.ApiConfig
 import com.example.api.report.IReportService
+import com.tencent.mars.xlog.Log
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 
@@ -25,11 +26,20 @@ class ReportServiceImpl private constructor(private val context: Context) : IRep
     }
 
     companion object {
-        private lateinit var mReportService: ReportServiceImpl
+        private const val TAG = "ReportServiceImpl"
+
+        @Volatile
+        var mReportService: IReportService? = null
 
         fun init(context: Context): IReportService {
-            mReportService = ReportServiceImpl(context)
-            return mReportService
+            if (mReportService == null) {
+                synchronized(ReportServiceImpl::class) {
+                    if (mReportService == null) {
+                        mReportService = ReportServiceImpl(context)
+                    }
+                }
+            }
+            return mReportService!!
         }
     }
 
@@ -42,45 +52,56 @@ class ReportServiceImpl private constructor(private val context: Context) : IRep
     override fun umengOnProfileSignIn(userId: String) {
         //当用户使用自有账号登录时，可以这样统计：
         MobclickAgent.onProfileSignIn(userId)
+        Log.i(TAG, "umengOnProfileSignIn userId: %s", userId)
     }
 
     override fun umengOnProfileSignOff() {
         MobclickAgent.onProfileSignOff()
+        Log.i(TAG, "umengOnProfileSignOff")
     }
 
     override fun umengOnPageStart(viewName: String) {
         MobclickAgent.onPageStart(viewName)
+        Log.i(TAG, "umengOnPageStart viewName: %s", viewName)
     }
 
     override fun umengOnPageEnd(viewName: String) {
         MobclickAgent.onPageEnd(viewName)
+        Log.i(TAG, "umengOnPageEnd viewName: %s", viewName)
     }
 
     override fun umengOnEvent(context: Context, eventID: String) {
         MobclickAgent.onEvent(context, eventID)
+        Log.i(TAG, "umengOnEvent eventID: %s", eventID)
     }
 
     override fun umengOnEvent(context: Context, eventID: String, label: String) {
         MobclickAgent.onEvent(context, eventID, label)
+        Log.i(TAG, "umengOnEvent eventID: %s", eventID)
     }
 
     override fun umengOnEvent(context: Context, eventID: String, map: Map<String, String>) {
         MobclickAgent.onEvent(context, eventID, map)
+        Log.i(TAG, "umengOnEvent userId")
     }
 
     override fun umengOnEventValue(context: Context, eventID: String, map: Map<String, String>, du: Int) {
         MobclickAgent.onEventValue(context, eventID, map, du)
+        Log.i(TAG, "umengOnEventValue")
     }
 
     override fun umengSetFirstLaunchEvent(context: Context, list: List<String>) {
         MobclickAgent.setFirstLaunchEvent(context, list)
+        Log.i(TAG, "umengSetFirstLaunchEvent list: %s", list.toString())
     }
 
     override fun umengReportError(context: Context, e: Throwable) {
         MobclickAgent.reportError(context, e)
+        Log.i(TAG, "umengReportError userId")
     }
 
     override fun umengReportError(context: Context, error: String) {
         MobclickAgent.reportError(context, error)
+        Log.i(TAG, "umengReportError error: %s", error)
     }
 }

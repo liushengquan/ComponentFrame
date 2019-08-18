@@ -13,17 +13,25 @@ import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.TimeUnit
 
-class BookServiceImpl private constructor(context: Context) : IBookService {
+class BookServiceImpl constructor(context: Context) : IBookService {
 
     private val mContext = context
     private var mRepository: BookRepository = BookRepository.getInstance(mContext)
 
     companion object {
-        private lateinit var mBookService: BookServiceImpl
+
+        @Volatile
+        var mBookService: IBookService? = null
 
         fun init(context: Context): IBookService {
-            mBookService = BookServiceImpl(context)
-            return mBookService
+            if (mBookService == null) {
+                synchronized(BookServiceImpl::class) {
+                    if (mBookService == null) {
+                        mBookService = BookServiceImpl(context)
+                    }
+                }
+            }
+            return mBookService!!
         }
     }
 

@@ -9,12 +9,18 @@ import io.reactivex.Observable
 class BookLocalDataSource private constructor(context: Context) : IBookDataSource {
 
     companion object {
-        private lateinit var mLocalDataSource: BookLocalDataSource
+        @Volatile
+        var mLocalDataSource: BookLocalDataSource? = null
+
         fun getInstance(context: Context): IBookDataSource {
             if (mLocalDataSource == null) {
-                mLocalDataSource = BookLocalDataSource(context)
+                synchronized(BookLocalDataSource::class) {
+                    if (mLocalDataSource == null) {
+                        mLocalDataSource = BookLocalDataSource(context)
+                    }
+                }
             }
-            return mLocalDataSource
+            return mLocalDataSource!!
         }
     }
 

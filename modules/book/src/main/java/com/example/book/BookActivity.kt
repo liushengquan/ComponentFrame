@@ -16,5 +16,6 @@ class BookActivity : BaseActivity() {
 
     }
 
-
+    override fun appInitCallback() {
+    }
 }

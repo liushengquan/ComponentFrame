@@ -57,6 +57,7 @@ def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 deps.kotlin = kotlin
 
 def bugly = [:]
@@ -103,7 +104,7 @@ def addRepos(RepositoryHandler handler) {
     //Add the JitPack repository
     handler.maven { url 'https://maven.google.com' }
     handler.maven { url "https://jitpack.io" }
-    handler.maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    handler.maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     //Umeng
     handler.maven { url 'https://dl.bintray.com/umsdk/release' }
 }

@@ -5,9 +5,18 @@ class Router private constructor() {
     private var mServiceMap: MutableMap<String, Any> = mutableMapOf()
 
     companion object {
-        private lateinit var mRouter: Router
+        private var instance: Router? = null
+            get() {
+                if (field == null) {
+                    field = Router()
+                }
+                return field
+            }
 
-        fun getInstance() = if (mRouter != null) mRouter else Router()
+        @Synchronized
+        fun get(): Router{
+            return instance!!
+        }
     }
 
     fun registerService(serviceName: String, obj: Any) {

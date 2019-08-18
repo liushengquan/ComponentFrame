@@ -8,18 +8,23 @@ import com.example.liushengquan.douban.bean.book.Book
 import com.example.liushengquan.douban.bean.book.Books
 import io.reactivex.Observable
 
-class BookRemoteDataSource private constructor(context: Context): IBookDataSource {
+class BookRemoteDataSource private constructor(context: Context) : IBookDataSource {
 
     private var mBookApi: BookApi? = ApiRetrofit.getInstance(context).getApiService(BookApi::class.java) as BookApi
 
     companion object {
-        private lateinit var mLocalDataSource: BookRemoteDataSource
+        @Volatile
+        var mBookRemoteDataSource: BookRemoteDataSource? = null
 
         fun getInstance(context: Context): IBookDataSource {
-            if (mLocalDataSource == null) {
-                mLocalDataSource = BookRemoteDataSource(context)
+            if (mBookRemoteDataSource == null) {
+                synchronized(BookRemoteDataSource::class) {
+                    if (mBookRemoteDataSource == null) {
+                        mBookRemoteDataSource = BookRemoteDataSource(context)
+                    }
+                }
             }
-            return mLocalDataSource
+            return mBookRemoteDataSource!!
         }
     }
 
