@@ -20,12 +20,12 @@ class Router private constructor() {
     }
 
     fun registerService(serviceName: String, obj: Any) {
-        mServiceMap?.put(serviceName, obj)
+        mServiceMap[serviceName] = obj
     }
 
     fun removeService(serviceName: String) {
-        mServiceMap?.remove(serviceName)
+        mServiceMap.remove(serviceName)
     }
 
-    fun getService(serviceName: String) = mServiceMap?.get(serviceName)
+    fun getService(serviceName: String) = mServiceMap[serviceName]
 }

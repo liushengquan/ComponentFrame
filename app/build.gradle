@@ -70,6 +70,6 @@ dependencies {
         implementation project(':modules:book')
         implementation project(':modules:film')
         implementation project(':modules:music')
-        implementation project(':modules:event')
+        implementation project(':modules:user')
     }
 }

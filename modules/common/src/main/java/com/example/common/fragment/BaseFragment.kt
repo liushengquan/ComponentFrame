@@ -7,6 +7,7 @@ import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -38,6 +39,16 @@ abstract class BaseFragment : Fragment(), BaseInit {
         //初始化loading
         val view = LayoutInflater.from(mContext).inflate(R.layout.common_popup_loading, null, false)
         mPopLoading = PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return LayoutInflater.from(mContext).inflate(getContentView(), null, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initData()
     }
 
     /**

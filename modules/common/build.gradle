@@ -11,12 +11,6 @@ android {
         versionName project.VersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
     }
 
     buildTypes {
@@ -54,12 +48,8 @@ dependencies {
     api deps.gson
     api deps.glide
 
-    //router
-    api deps.arouter_api
-
     api project(':service-base:api')
 
     //annotationProcessor
-    annotationProcessor deps.glide_annotation_processer
-    annotationProcessor deps.arouter_compiler
+    kapt deps.glide_annotation_processer
 }
