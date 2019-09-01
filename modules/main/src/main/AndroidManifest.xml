@@ -4,6 +4,13 @@
 
     <application android:theme="@style/AppTheme">
         <activity android:name="com.example.main.activity.MainActivity" />
+        <activity android:name="com.example.main.activity.chat.MainChatActivity" />
+        <activity android:name="com.example.main.activity.chat.MainStartC2CChatActivity" />
+        <activity android:name="com.example.main.activity.chat.MainStartGroupChatActivity" />
+        <activity android:name="com.example.main.activity.contact.MainNewFriendActivity" />
+        <activity android:name="com.example.main.activity.contact.MainGroupListActivity" />
+        <activity android:name="com.example.main.activity.contact.MainFriendProfileActivity" />
+        <activity android:name="com.example.main.activity.contact.MainBlackListActivity" />
     </application>
 
 </manifest>

@@ -1,15 +1,20 @@
 package com.example.main.activity
 
+import android.content.Context
 import android.support.v4.app.FragmentManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.common.activity.BaseActivity
 import com.example.common.fragment.BaseFragment
 import com.example.common.router.constant.MainConstant
+import com.example.common.router.constant.UserConstant
 import com.example.main.R
-import com.example.main.activity.address.MainAddressFragment
+import com.example.main.activity.contact.MainContactFragment
 import com.example.main.activity.me.MainMeFragment
 import com.example.main.activity.messege.MainMessegeFragment
 import com.tencent.mars.xlog.Log
+import com.tencent.qcloud.tim.uikit.TUIKit
+import com.tencent.qcloud.tim.uikit.modules.conversation.ConversationManagerKit
 import kotlinx.android.synthetic.main.main_activity_main.*
 
 @Route(path = MainConstant.Mactivity)
@@ -35,7 +40,7 @@ class MainActivity : BaseActivity() {
 
         ll_main_users.setOnClickListener {
             Log.i(TAG, "ll_main_users click")
-            if (mCurrFragment !is MainAddressFragment) {
+            if (mCurrFragment !is MainContactFragment) {
                 showOrHideFragment(mCurrFragment, mFragmentList[1])
             }
         }
@@ -59,7 +64,7 @@ class MainActivity : BaseActivity() {
     override fun initData() {
         val transaction = mFragmentManager.beginTransaction()
         mFragmentList.add(MainMessegeFragment.newInstance())
-        mFragmentList.add(MainAddressFragment.newInstance())
+        mFragmentList.add(MainContactFragment.newInstance())
         mFragmentList.add(MainMeFragment.newInstance())
         transaction.add(R.id.rl_main_container, mFragmentList[0])
         transaction.add(R.id.rl_main_container, mFragmentList[1])
@@ -74,6 +79,27 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         Log.i(TAG, "onDestroy")
         Log.appenderClose()
+    }
+
+    fun logout(autoLogin: Boolean) {
+        Log.i(TAG, "logout")
+        autoLogin(autoLogin)
+        clean()
+        ARouter.getInstance().build(UserConstant.LoginActivity)
+                .withBoolean("logout", true)
+                .navigation()
+    }
+
+    private fun autoLogin(autoLogin: Boolean) {
+        val shareInfo = getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+        val editor = shareInfo.edit()
+        editor.putBoolean("Auto_login", autoLogin)
+        editor.commit()
+    }
+
+    private fun clean() {
+        ConversationManagerKit.getInstance().destroyConversation()
+        TUIKit.setIMEventListener(null)
     }
 
     override fun appInitCallback() {

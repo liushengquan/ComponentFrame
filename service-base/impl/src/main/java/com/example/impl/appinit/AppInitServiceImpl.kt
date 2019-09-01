@@ -15,7 +15,6 @@ import com.tencent.mars.xlog.Log
 import com.tencent.mars.xlog.Xlog
 import com.tencent.qcloud.tim.uikit.TUIKit
 import com.tencent.qcloud.tim.uikit.base.IMEventListener
-import com.tencent.qcloud.tim.uikit.base.IUIKitCallBack
 import com.tencent.qcloud.tim.uikit.config.CustomFaceConfig
 import com.tencent.qcloud.tim.uikit.config.GeneralConfig
 
@@ -116,10 +115,6 @@ class AppInitServiceImpl private constructor(val context: Context) : IAppInitSer
             ARouter.openDebug()
         }
         ARouter.init(context as Application)
-    }
-
-    override fun loginIm(userid: String, usersig: String, callback: IUIKitCallBack) {
-        TUIKit.login(userid, usersig, callback)
     }
 
     override fun onServiceStart() {

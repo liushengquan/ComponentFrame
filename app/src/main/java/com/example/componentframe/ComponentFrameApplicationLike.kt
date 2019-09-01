@@ -7,10 +7,12 @@ import android.os.Environment
 import android.support.multidex.MultiDex
 import com.example.api.appinit.IAppInitService
 import com.example.api.book.bean.IBookService
+import com.example.api.im.IImService
 import com.example.api.report.IReportService
 import com.example.common.base.BaseApp
 import com.example.common.router.Router
 import com.example.common.util.ProcessUtil
+import com.example.impl.ImServiceImpl
 import com.example.impl.appinit.AppInitServiceImpl
 import com.example.impl.book.BookServiceImpl
 import com.example.impl.report.ReportServiceImpl
@@ -53,6 +55,7 @@ class ComponentFrameApplicationLike(application: Application, tinkerFlags: Int, 
         router.registerService(IAppInitService::class.simpleName!!, AppInitServiceImpl.init(BaseApp.getAppContext()))
         router.registerService(IReportService::class.simpleName!!, ReportServiceImpl.init(BaseApp.getAppContext()))
         router.registerService(IBookService::class.simpleName!!, BookServiceImpl.init(BaseApp.getAppContext()))
+        router.registerService(IImService::class.simpleName!!, ImServiceImpl.init(BaseApp.getAppContext()))
     }
 
     override fun onBaseContextAttached(base: Context?) {

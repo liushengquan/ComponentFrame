@@ -5,10 +5,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import android.view.Window
-import android.view.WindowManager
 import com.example.api.appinit.AppInitEvent
 import com.example.common.base.BaseApp
+import com.example.common.util.StatusBarUtil
 import com.tencent.mars.xlog.Log
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -21,10 +20,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseInit {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(getContentView())
         BaseApp.addActivityToStack(this)
+        StatusBarUtil.setStatusBarFullTransparent(window)
         initView()
         initData()
     }

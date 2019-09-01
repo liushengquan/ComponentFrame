@@ -54,9 +54,9 @@ abstract class BaseRecycleViewAdapter<T>() : RecyclerView.Adapter<RecyclerView.V
 
     abstract fun onCreateItemViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder
 
-    abstract fun onCreateHeaderViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder
+    abstract fun onCreateHeaderViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder?
 
-    abstract fun onCreateFooterViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder
+    abstract fun onCreateFooterViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder?
 
     abstract fun onBindItemViewHolder(viewHolder: RecyclerView.ViewHolder?, position: Int, data: T)
 
@@ -66,8 +66,8 @@ abstract class BaseRecycleViewAdapter<T>() : RecyclerView.Adapter<RecyclerView.V
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
         return when (p1) {
-            TYPE_HEAD -> onCreateHeaderViewHolder(p0, p1)
-            TYPE_FOOT -> onCreateFooterViewHolder(p0, p1)
+            TYPE_HEAD -> onCreateHeaderViewHolder(p0, p1)!!
+            TYPE_FOOT -> onCreateFooterViewHolder(p0, p1)!!
             else ->
                 onCreateItemViewHolder(p0, p1)
         }
